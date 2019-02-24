@@ -11,6 +11,23 @@
 |
 */
 
+/*
+ * 全タスク表示
+ */
 Route::get('/', function () {
-    return view('welcome');
+    return view('tasks');
+});
+
+/*
+ * 新タスク追加
+ */
+Route::get('/task', function (Request $request) {
+    //
+});
+
+/*
+ * 既存タスク削除
+ */
+Route::get('task/{$id}', function ($id) {
+    //
 });
