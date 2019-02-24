@@ -15,14 +15,26 @@
  * 全タスク表示
  */
 Route::get('/', function () {
-    return view('tasks');
+    $tasks = Task::orderBy('created_at', 'asc')->get();
+
+    return view('tasks', [
+        'tasks' => $tasks,
+    ]);
 });
 
 /*
  * 新タスク追加
  */
 Route::get('/task', function (Request $request) {
-    //
+    $validator = $request->validate([
+        'name' =>'required|max:255'
+    ]);
+
+    $task = new Task;
+    $task->name = $request->name;
+    $task->save();
+
+    return redirect('/');
 });
 
 /*
