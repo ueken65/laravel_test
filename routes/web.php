@@ -1,5 +1,8 @@
 <?php
 
+use App\Task;
+use Illuminate\Http\Request;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,9 +28,9 @@ Route::get('/', function () {
 /*
  * 新タスク追加
  */
-Route::get('/task', function (Request $request) {
+Route::post('/task', function (Request $request) {
     $validator = $request->validate([
-        'name' =>'required|max:255'
+        'name' => 'required|max:255'
     ]);
 
     $task = new Task;
@@ -40,6 +43,8 @@ Route::get('/task', function (Request $request) {
 /*
  * 既存タスク削除
  */
-Route::get('task/{$id}', function ($id) {
-    //
+Route::delete('task/{id}', function ($id) {
+    Task::findOrFail($id)->delete();
+
+    return redirect('/');
 });
