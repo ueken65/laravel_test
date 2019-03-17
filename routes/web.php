@@ -48,3 +48,18 @@ Route::delete('task/{id}', function ($id) {
 
     return redirect('/');
 });
+
+Route::get('imagicktest', function () {
+    $imagick = new Imagick();
+	$imagick->readImage("images/frames/f0.png");
+	// $imagick->readImage(__DIR__."/chroe.jpg");
+
+	$imagick_2 = new Imagick(); 
+	$imagick_2->readImage("images/chroe.jpg");
+	//$imagick_2->readImage(__DIR__."/frames/f0.png");
+
+	
+	$imagick->compositeImage($imagick_2, Imagick::PREVIEW_IMPLODE, 50, 420);
+	header("Content-Type: ".$imagick->getImageMimeType());
+	return $imagick->getImagesBlob();
+});
